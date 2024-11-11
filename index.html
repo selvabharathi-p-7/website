@@ -1,0 +1,263 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise</title>
+   
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Enter Password</h2>
+    <input type="password" id="password" placeholder="Enter the secret password">
+    <button onclick="checkPassword()">Login</button>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+    const correctPassword = "yourSecretPassword";  // Replace with your actual password
+
+    function checkPassword() {
+        const enteredPassword = document.getElementById('password').value;
+        const messageElement = document.getElementById('message');
+        
+        if (enteredPassword === correctPassword) {
+            window.location.href = "content.html";  // Redirect to content page
+        } else {
+            messageElement.textContent = "Incorrect password, try again!";
+        }
+    }
+</script>
+
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            font-size: 18px;
+            color: #ff6f61;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login with Auth0</h2>
+    <button id="loginBtn">Login</button>
+    <button id="logoutBtn" style="display: none;">Logout</button>
+    <div class="message" id="message"></div>
+</div>
+
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0.0/auth0-spa-js.production.js"></script>
+
+<script>
+    let auth0Client = null;
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const messageElement = document.getElementById('message');
+
+    // Initialize the Auth0 client
+    async function configureClient() {
+        auth0Client = await createAuth0Client({
+            domain: "selvabharathi.us.auth0.com", // Replace with your Auth0 domain
+            client_id: "Iom1Thp1oBLRa7MV1moa0pWfO68tGJgg", // Replace with your Auth0 client ID
+            redirect_uri: window.location.href
+        });
+
+        // Check if the user is logged in
+        const isAuthenticated = await auth0Client.isAuthenticated();
+        if (isAuthenticated) {
+            const user = await auth0Client.getUser();
+            messageElement.innerHTML = `Hello, ${user.name}`;
+            loginBtn.style.display = 'none';
+            logoutBtn.style.display = 'inline-block';
+        } else {
+            messageElement.innerHTML = "You are not logged in.";
+            loginBtn.style.display = 'inline-block';
+            logoutBtn.style.display = 'none';
+        }
+    }
+
+    // Login function
+    async function login() {
+        await auth0Client.loginWithRedirect();
+    }
+
+    // Logout function
+    async function logout() {
+        await auth0Client.logout({ returnTo: window.location.href });
+    }
+
+    // When the login button is clicked
+    loginBtn.addEventListener('click', login);
+
+    // When the logout button is clicked
+    logoutBtn.addEventListener('click', logout);
+
+    // Configure the client when the page loads
+    configureClient();
+</script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            font-size: 18px;
+            color: #ff6f61;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login with Auth0</h2>
+    <button id="loginBtn">Login</button>
+    <button id="logoutBtn" style="display: none;">Logout</button>
+    <div class="message" id="message"></div>
+</div>
+
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0.0/auth0-spa-js.production.js"></script>
+
+<script>
+    let auth0Client = null;
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const messageElement = document.getElementById('message');
+
+    // Initialize the Auth0 client
+    async function configureClient() {
+        try {
+            auth0Client = await createAuth0Client({
+                domain: "selvabharathi.us.auth0.com", // Replace with your Auth0 domain
+                client_id: "Iom1Thp1oBLRa7MV1moa0pWfO68tGJgg", // Replace with your Auth0 client ID
+                redirect_uri: "http://localhost:5500/content.html", // Make sure this matches the callback URL
+            });
+
+            // Check if the user is logged in
+            const isAuthenticated = await auth0Client.isAuthenticated();
+            if (isAuthenticated) {
+                const user = await auth0Client.getUser();
+                messageElement.innerHTML = `Hello, ${user.name}`;
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'inline-block';
+            } else {
+                messageElement.innerHTML = "You are not logged in.";
+                loginBtn.style.display = 'inline-block';
+                logoutBtn.style.display = 'none';
+            }
+        } catch (error) {
+            console.error("Error configuring Auth0 client:", error);
+            messageElement.innerHTML = "There was an issue with the login process.";
+        }
+    }
+
+    // Login function
+    async function login() {
+        try {
+            await auth0Client.loginWithRedirect();
+        } catch (error) {
+            console.error("Error during login:", error);
+            messageElement.innerHTML = "Login failed. Please try again.";
+        }
+    }
+
+    // Logout function
+    async function logout() {
+        try {
+            await auth0Client.logout({ returnTo: window.location.href });
+        } catch (error) {
+            console.error("Error during logout:", error);
+            messageElement.innerHTML = "Logout failed. Please try again.";
+        }
+    }
+
+    // When the login button is clicked
+    loginBtn.addEventListener('click', login);
+
+    // When the logout button is clicked
+    logoutBtn.addEventListener('click', logout);
+
+    // Configure the client when the page loads
+    configureClient();
+</script>
+
+</body>
+</html>

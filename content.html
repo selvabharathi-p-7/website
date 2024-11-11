@@ -1,0 +1,150 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .message {
+            font-size: 24px;
+            color: #ff6f61;
+        }
+        video, img {
+            max-width: 80%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Birthday Surprise</h1>
+<div id="content"></div>
+
+<script>
+    // Set the target time: November 12, 6:00 PM (2024)
+    const targetDate = new Date("2024-11-10T18:00:00");
+
+    function displayContent() {
+        const now = new Date();
+        const contentElement = document.getElementById("content");
+
+        // If it's past 6 PM on November 12, show the content
+        if (now >= targetDate) {
+            contentElement.innerHTML = `
+                <h2>Surprise! Here is your birthday gift!</h2>
+                <video controls>
+                    <source src="your-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div>
+                    <img src="your-photo.jpg" alt="Birthday Photo">
+                </div>
+            `;
+        } else {
+            const timeDiff = targetDate - now;
+            const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            contentElement.innerHTML = `
+                <h2>Wait until 6:00 PM</h2>
+                <div class="message">Content will be available in ${hours} hours and ${minutes} minutes.</div>
+            `;
+            // Keep refreshing the countdown every minute
+            setTimeout(displayContent, 60000);
+        }
+    }
+
+    displayContent();
+</script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .message {
+            font-size: 24px;
+            color: #ff6f61;
+        }
+        video, img {
+            max-width: 80%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Birthday Surprise</h1>
+<div id="content"></div>
+
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0.0/auth0-spa-js.production.js"></script>
+
+<script>
+    let auth0Client = null;
+
+    // Initialize the Auth0 client
+    async function configureClient() {
+        auth0Client = await createAuth0Client({
+            domain: "your-auth0-domain", // Replace with your Auth0 domain
+            client_id: "your-client-id", // Replace with your Auth0 client ID
+            redirect_uri: window.location.href
+        });
+
+        // Check if the user is authenticated
+        const isAuthenticated = await auth0Client.isAuthenticated();
+        if (isAuthenticated) {
+            const user = await auth0Client.getUser();
+            showSurprise(user);  // Display content if authenticated
+        } else {
+            document.getElementById("content").innerHTML = `
+                <h2>Please log in to view the surprise!</h2>
+                <a href="index.html">Go to Login</a>
+            `;
+        }
+    }
+
+    // Show surprise content (video, image, etc.)
+    function showSurprise(user) {
+        const contentElement = document.getElementById("content");
+        contentElement.innerHTML = `
+            <h2>Surprise! Here is your birthday gift, ${user.name}!</h2>
+            <video controls>
+                <source src="your-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div>
+                <img src="your-photo.jpg" alt="Birthday Photo">
+            </div>
+        `;
+    }
+
+    configureClient();
+</script>
+
+</body>
+</html>
